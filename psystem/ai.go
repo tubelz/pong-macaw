@@ -1,7 +1,6 @@
 package psystem
 
 import (
-	"log"
 	"github.com/tubelz/macaw/entity"
 )
 

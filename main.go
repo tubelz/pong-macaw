@@ -15,7 +15,7 @@ import (
 func main() {
 	fmt.Println("Pong")
 	var err error
-	err = macaw.Initialize(false, true)
+	err = macaw.Initialize(false, true, false)
 	if err != nil {
 		fmt.Println("Macaw could not initialize")
 	}
@@ -49,8 +49,8 @@ func initializeSystems(im *input.Manager) []system.Systemer {
 	ai := &psystem.AiSystem{Name: "ai system"}
 	// initialize some systems that require such act
 	render.Init(macaw.Window)
-	change.Init(collision, physics)
-	score.Init(physics)
+	change.Init(collision)
+	score.Init(collision)
 
 	systems := []system.Systemer{
 		render,
