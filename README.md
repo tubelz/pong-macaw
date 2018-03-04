@@ -14,7 +14,6 @@ Pong demo using [Macaw](https://github.com/tubelz/macaw/), a 2D Game Engine usin
 ## TODO
 
 * Tests
-* AI
 * Add sprite for the ball
 * Sound
 
@@ -25,5 +24,5 @@ If there is a bug you can open an issue here.
 ## License
 The code here is under the zlib license. You can read more [here](https://github.com/tubelz/pong-macaw/LICENSE.txt)
 
-## Credit 
+## Credit
 The font used was made by [codeman38](cody@zone38.net)
