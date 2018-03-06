@@ -79,7 +79,6 @@ func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Enti
 
 	//load sprite
 	render := systems[0].(*system.RenderSystem)
-	// collision := systems[1].(*system.CollisionSystem)
 
 	acc := &math.FPoint{0, 0}
 	vel := &math.FPoint{0, 1}

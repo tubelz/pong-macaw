@@ -4,7 +4,6 @@ import (
 	"github.com/tubelz/macaw/entity"
 	"github.com/tubelz/macaw/input"
 	"github.com/veandco/go-sdl2/sdl"
-	"log"
 )
 
 // PlayerSystem is the struct that contains the controllable stick
@@ -34,7 +33,6 @@ func (p *PlayerSystem) Update() {
 			e := p.Entities[0].(*entity.Entity)
 			p, _ := e.GetComponent("position")
 			pos := p.(*entity.PositionComponent)
-			log.Printf("POS %v", pos.Pos)
 			if pos.Pos.Y < 520 {
 				pos.Pos.Y += 5
 			}
