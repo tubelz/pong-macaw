@@ -127,9 +127,14 @@ func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Enti
 
 func initializeGameLoop(systems []system.Systemer, im *input.Manager) *macaw.GameLoop {
 	gameLoop := &macaw.GameLoop{InputManager: im}
-	gameLoop.AddRenderSystem(systems[0].(*system.RenderSystem))
+	// game loop
+	sceneGame := &macaw.Scene{Name: "game"}
+	sceneGame.AddRenderSystem(systems[0].(*system.RenderSystem))
 	for _, system := range systems[1:] {
-		gameLoop.AddGameUpdateSystem(system)
+		sceneGame.AddGameUpdateSystem(system)
 	}
+
+	gameLoop.AddScene(sceneGame)
+
 	return gameLoop
 }
