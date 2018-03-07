@@ -26,7 +26,7 @@ func (p *PlayerSystem) Update() {
 			p, _ := e.GetComponent("position")
 			pos := p.(*entity.PositionComponent)
 			if pos.Pos.Y > 0 {
-				pos.Pos.Y -= 5
+				pos.Pos.Y -= 10
 			}
 		}
 		if button.Keysym.Sym == sdl.K_DOWN {
@@ -34,7 +34,7 @@ func (p *PlayerSystem) Update() {
 			p, _ := e.GetComponent("position")
 			pos := p.(*entity.PositionComponent)
 			if pos.Pos.Y < 520 {
-				pos.Pos.Y += 5
+				pos.Pos.Y += 10
 			}
 		}
 		if button.Keysym.Sym == sdl.K_a && button.State == 0 {

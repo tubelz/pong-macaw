@@ -25,8 +25,28 @@ func (c *ChangeSystem) Update() {
 // Init adds the collision handler
 func (c *ChangeSystem) Init(col *system.CollisionSystem) {
 	log.Printf("Init %s", c.Name)
+	col.AddHandler("collision event", increaseVel)
 	col.AddHandler("collision event", system.InvertVel)
 	col.AddHandler("border event", invertYAxis)
+}
+
+func increaseVel(event system.Event) {
+	collision := event.(*system.CollisionEvent)
+
+	if collision.Ent.GetID() != 2 {
+		return
+	}
+	component, _ := collision.Ent.GetComponent("physics")
+	physics := component.(*entity.PhysicsComponent)
+
+	log.Printf("%v", physics.Vel)
+	if physics.Vel.X > 0 && physics.Vel.X < 13 {
+		physics.Vel.X++
+		physics.Vel.Y += .2
+	} else if physics.Vel.X < 0 && physics.Vel.X > -13 {
+		physics.Vel.X--
+		physics.Vel.Y -= .2
+	}
 }
 
 // invertYAxis invert the vel on the Y axis of the collided object.

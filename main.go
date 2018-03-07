@@ -47,7 +47,7 @@ func initializeSystems(im *input.Manager) []system.Systemer {
 	score := &psystem.ScoreSystem{Name: "score system"}
 	change := &psystem.ChangeSystem{Name: "change system"}
 	ai := &psystem.AiSystem{Name: "ai system"}
-	// initialize some systems that require such act
+	// initialize some systems that require such actions
 	render.Init(macaw.Window)
 	change.Init(collision)
 	score.Init(collision)
