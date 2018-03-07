@@ -47,8 +47,8 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 		log.Printf("entity: %d", obj.GetID())
 		log.Println("you scored")
 
-		hisScore := s.Entities[4].(*entity.Entity)
-		f := hisScore.GetComponents()["font"].(*entity.FontComponent)
+		myScore := s.Entities[3].(*entity.Entity)
+		f := myScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score + 1)
 		f.Modified = true
@@ -58,8 +58,8 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 		log.Println(position.Pos.X)
 		log.Println("he scored")
 
-		myScore := s.Entities[3].(*entity.Entity)
-		f := myScore.GetComponents()["font"].(*entity.FontComponent)
+		hisScore := s.Entities[4].(*entity.Entity)
+		f := hisScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score + 1)
 		f.Modified = true
