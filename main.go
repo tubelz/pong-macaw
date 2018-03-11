@@ -19,6 +19,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Macaw could not initialize")
 	}
+	defer macaw.Quit()
 
 	mfont := entity.MFont{File: "assets/manaspc.ttf", Size: uint8(22)}
 	font := mfont.Open()
