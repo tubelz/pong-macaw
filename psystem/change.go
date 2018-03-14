@@ -27,7 +27,7 @@ func (c *ChangeSystem) Init(col *system.CollisionSystem) {
 	log.Printf("Init %s", c.Name)
 	col.AddHandler("collision event", increaseVel)
 	col.AddHandler("collision event", system.InvertVel)
-	col.AddHandler("border event", invertYAxis)
+	col.AddHandler("border event", invertAxis)
 }
 
 func increaseVel(event system.Event) {
@@ -49,8 +49,8 @@ func increaseVel(event system.Event) {
 	}
 }
 
-// invertYAxis invert the vel on the Y axis of the collided object.
-func invertYAxis(event system.Event) {
+// invertAxis invert the vel according to the border it hit
+func invertAxis(event system.Event) {
 	border := event.(*system.BorderEvent)
 
 	if border.Ent.GetID() == 0 {
