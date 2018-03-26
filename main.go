@@ -72,7 +72,8 @@ func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Enti
 	ball := &entity.Entity{}
 	playerScore := &entity.Entity{}
 	computerScore := &entity.Entity{}
-	entities := []entity.Entitier{player, computer, ball, playerScore, computerScore}
+	camera := &entity.Entity{}
+	entities := []entity.Entitier{player, computer, ball, playerScore, computerScore, camera}
 
 	for _, e := range entities {
 		e.Init()
@@ -122,6 +123,14 @@ func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Enti
 	computerScore.AddComponent("position", &entity.PositionComponent{&sdl.Point{500, 20}})
 	computerScore.AddComponent("font", &entity.FontComponent{Text: "0", Modified: true, Font: font})
 	computerScore.AddComponent("render", &entity.RenderComponent{Renderer: render.Renderer})
+
+	// camera
+	camera.AddComponent("position", &entity.PositionComponent{&sdl.Point{0, 0}})
+	camera.AddComponent("camera", &entity.CameraComponent{
+		ViewportSize: sdl.Point{800, 600},
+		WorldSize: sdl.Point{800, 600},
+	})
+	render.SetCamera(camera)
 
 	return entities
 }
