@@ -11,13 +11,10 @@ import (
 // ScoreSystem is the struct responsible to keep the score of the game
 type ScoreSystem struct {
 	Entities []entity.Entitier
+	EntityManager *entity.Manager
 	Name string
 	system.Subject
-}
-
-// Assign assign entities with this system
-func (s *ScoreSystem) Assign(entities []entity.Entitier) {
-	s.Entities = entities
+	CollisionSystem *system.CollisionSystem
 }
 
 // Update is here just to comply with the system interface
@@ -25,9 +22,9 @@ func (s *ScoreSystem) Update() {
 }
 
 // Init adds the collision handler
-func (s *ScoreSystem) Init(sys *system.CollisionSystem) {
+func (s *ScoreSystem) Init() {
 	log.Printf("Init %s", s.Name)
-	sys.AddHandler("border event", s.checkScore)
+	s.CollisionSystem.AddHandler("border event", s.checkScore)
 }
 
 func (s *ScoreSystem) checkScore(event system.Event) {
@@ -46,7 +43,7 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 	if border.Side == "right" {
 		log.Printf("entity: %d", obj.GetID())
 		log.Println("you scored")
-
+		s.EntityManager.Delete(obj.GetID())
 		myScore := s.Entities[3].(*entity.Entity)
 		f := myScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)

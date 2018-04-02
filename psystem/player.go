@@ -8,21 +8,19 @@ import (
 
 // PlayerSystem is the struct that contains the controllable stick
 type PlayerSystem struct {
-	Entities []entity.Entitier
+	EntityManager *entity.Manager
 	Name string
 	InputManager *input.Manager
 }
 
-// Assign assign entities with this system
-func (p *PlayerSystem) Assign(entities []entity.Entitier) {
-	p.Entities = entities
-}
+// Init initialize this system
+func (p *PlayerSystem) Init() {}
 
 // Update handle the input event
 func (p *PlayerSystem) Update() {
 	if button := p.InputManager.Button(); button != nil {
 		if button.Keysym.Sym == sdl.K_UP {
-			e := p.Entities[0].(*entity.Entity)
+			e := p.EntityManager.Get(0)
 			p, _ := e.GetComponent("position")
 			pos := p.(*entity.PositionComponent)
 			if pos.Pos.Y > 0 {
@@ -30,7 +28,7 @@ func (p *PlayerSystem) Update() {
 			}
 		}
 		if button.Keysym.Sym == sdl.K_DOWN {
-			e := p.Entities[0].(*entity.Entity)
+			e := p.EntityManager.Get(0)
 			p, _ := e.GetComponent("position")
 			pos := p.(*entity.PositionComponent)
 			if pos.Pos.Y < 520 {
@@ -38,7 +36,7 @@ func (p *PlayerSystem) Update() {
 			}
 		}
 		if button.Keysym.Sym == sdl.K_a && button.State == 0 {
-			e := p.Entities[2].(*entity.Entity)
+			e := p.EntityManager.Get(2)
 			p, _ := e.GetComponent("physics")
 			phs := p.(*entity.PhysicsComponent)
 			phs.Vel.X *= -1

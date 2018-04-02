@@ -26,32 +26,27 @@ func main() {
 	defer mfont.Close()
 
 	input := &input.Manager{}
-	systems := initializeSystems(input)
-	entities := initializeEntities(systems, font)
-
-	// lazy way to assign entities to the system. usually you'd want to assign the
-	// right entities only, but this works for our problem here.
-	for _, system := range systems {
-		system.Assign(entities)
-	}
+	entityManager := &entity.Manager{}
+	systems := initializeSystems(input, entityManager)
+	initializeEntities(entityManager, systems, font)
 
 	gameLoop := initializeGameLoop(systems, input)
 
 	gameLoop.Run()
 }
 
-func initializeSystems(im *input.Manager) []system.Systemer {
-	render := &system.RenderSystem{Name: "render system"}
-	player := &psystem.PlayerSystem{Name: "player system", InputManager: im}
-	physics := &system.PhysicsSystem{Name: "physics system"}
-	collision := &system.CollisionSystem{Name: "collision system"}
-	score := &psystem.ScoreSystem{Name: "score system"}
-	change := &psystem.ChangeSystem{Name: "change system"}
-	ai := &psystem.AiSystem{Name: "ai system"}
+func initializeSystems(im *input.Manager, em *entity.Manager) []system.Systemer {
+	render := &system.RenderSystem{Name: "render system", Window: macaw.Window, EntityManager: em}
+	player := &psystem.PlayerSystem{Name: "player system", InputManager: im, EntityManager: em}
+	physics := &system.PhysicsSystem{Name: "physics system", EntityManager: em}
+	collision := &system.CollisionSystem{Name: "collision system", EntityManager: em}
+	score := &psystem.ScoreSystem{Name: "score system", CollisionSystem: collision, EntityManager: em}
+	change := &psystem.ChangeSystem{Name: "change system", CollisionSystem: collision, EntityManager: em}
+	ai := &psystem.AiSystem{Name: "ai system", EntityManager: em}
 	// initialize some systems that require such actions
-	render.Init(macaw.Window)
-	change.Init(collision)
-	score.Init(collision)
+	render.Init()
+	change.Init()
+	score.Init()
 
 	systems := []system.Systemer{
 		render,
@@ -66,18 +61,13 @@ func initializeSystems(im *input.Manager) []system.Systemer {
 }
 
 // func initializeEntities(systems []system.Systemer, font *ttf.Font) ([]entity.Entitier){
-func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Entitier {
-	player := &entity.Entity{}
-	computer := &entity.Entity{}
-	ball := &entity.Entity{}
-	playerScore := &entity.Entity{}
-	computerScore := &entity.Entity{}
-	camera := &entity.Entity{}
-	entities := []entity.Entitier{player, computer, ball, playerScore, computerScore, camera}
-
-	for _, e := range entities {
-		e.Init()
-	}
+func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf.Font) {
+	player := em.Create()
+	computer := em.Create()
+	ball := em.Create()
+	playerScore := em.Create()
+	computerScore := em.Create()
+	camera := em.Create()
 
 	//load sprite
 	render := systems[0].(*system.RenderSystem)
@@ -132,7 +122,6 @@ func initializeEntities(systems []system.Systemer, font *ttf.Font) []entity.Enti
 	})
 	render.SetCamera(camera)
 
-	return entities
 }
 
 func initializeGameLoop(systems []system.Systemer, im *input.Manager) *macaw.GameLoop {

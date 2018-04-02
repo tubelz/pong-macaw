@@ -8,14 +8,10 @@ import (
 
 // ChangeSystem is the struct responsible to add the observer and handler to the collision event
 type ChangeSystem struct {
-	Entities []entity.Entitier
+	EntityManager *entity.Manager
 	Name string
 	system.Subject
-}
-
-// Assign assign entities with this system
-func (c *ChangeSystem) Assign(entities []entity.Entitier) {
-	c.Entities = entities
+	CollisionSystem *system.CollisionSystem
 }
 
 // Update is here just to comply with the system interface
@@ -23,11 +19,11 @@ func (c *ChangeSystem) Update() {
 }
 
 // Init adds the collision handler
-func (c *ChangeSystem) Init(col *system.CollisionSystem) {
+func (c *ChangeSystem) Init() {
 	log.Printf("Init %s", c.Name)
-	col.AddHandler("collision event", increaseVel)
-	col.AddHandler("collision event", system.InvertVel)
-	col.AddHandler("border event", invertAxis)
+	c.CollisionSystem.AddHandler("collision event", increaseVel)
+	c.CollisionSystem.AddHandler("collision event", system.InvertVel)
+	c.CollisionSystem.AddHandler("border event", invertAxis)
 }
 
 func increaseVel(event system.Event) {
