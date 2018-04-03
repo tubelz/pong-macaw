@@ -43,8 +43,8 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 	if border.Side == "right" {
 		log.Printf("entity: %d", obj.GetID())
 		log.Println("you scored")
-		s.EntityManager.Delete(obj.GetID())
-		myScore := s.Entities[3].(*entity.Entity)
+
+		myScore := s.EntityManager.Get(3)
 		f := myScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score + 1)
@@ -52,10 +52,9 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 	}
 	if border.Side == "left" {
 		log.Printf("entity: %d", obj.GetID())
-		log.Println(position.Pos.X)
 		log.Println("he scored")
 
-		hisScore := s.Entities[4].(*entity.Entity)
+		hisScore := s.EntityManager.Get(4)
 		f := hisScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score + 1)
