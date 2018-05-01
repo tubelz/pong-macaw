@@ -7,7 +7,7 @@ import (
 // AiSystem is the struct responsible to add the observer and handler to the collision event
 type AiSystem struct {
 	EntityManager *entity.Manager
-	Name string
+	Name          string
 }
 
 // Init initialize this system
@@ -25,7 +25,7 @@ func (a *AiSystem) Update() {
 	computerPhysics := component.(*entity.PhysicsComponent)
 
 	if (ballPhysics.Vel.Y > 0 && computerPhysics.Vel.Y < 0) ||
-	 	(ballPhysics.Vel.Y < 0 && computerPhysics.Vel.Y > 0) {
+		(ballPhysics.Vel.Y < 0 && computerPhysics.Vel.Y > 0) {
 		computerPhysics.Vel.Y *= -1
 	}
 }

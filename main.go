@@ -77,7 +77,7 @@ func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf
 
 	// player
 	player.AddComponent("position", &entity.PositionComponent{&sdl.Point{20, 20}})
-	player.AddComponent("collision", &entity.CollisionComponent{Size: &sdl.Point{10, 80}})
+	player.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
 	player.AddComponent("geometry", &entity.RectangleComponent{
 		Size:   &sdl.Point{10, 80},
 		Color:  &sdl.Color{0x66, 0x66, 0x66, 0xFF},
@@ -87,7 +87,7 @@ func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf
 	// computer
 	computer.AddComponent("position", &entity.PositionComponent{&sdl.Point{770, 20}})
 	computer.AddComponent("physics", &entity.PhysicsComponent{Vel: vel, Acc: acc, FuturePos: &math.FPoint{770, 20}})
-	computer.AddComponent("collision", &entity.CollisionComponent{Size: &sdl.Point{10, 80}})
+	computer.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
 	computer.AddComponent("geometry", &entity.RectangleComponent{
 		Size:   &sdl.Point{10, 80},
 		Color:  &sdl.Color{0xFF, 0x66, 0x66, 0xFF},
@@ -97,7 +97,7 @@ func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf
 	// ball
 	ball.AddComponent("position", &entity.PositionComponent{&sdl.Point{300, 20}})
 	ball.AddComponent("physics", &entity.PhysicsComponent{Vel: &math.FPoint{8, 1}, Acc: acc, FuturePos: &math.FPoint{300, 20}})
-	ball.AddComponent("collision", &entity.CollisionComponent{Size: &sdl.Point{10, 10}})
+	ball.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 10}}})
 	ball.AddComponent("geometry", &entity.RectangleComponent{
 		Size:   &sdl.Point{10, 10},
 		Color:  &sdl.Color{0x00, 0x00, 0x00, 0xFF},
@@ -118,7 +118,7 @@ func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf
 	camera.AddComponent("position", &entity.PositionComponent{&sdl.Point{0, 0}})
 	camera.AddComponent("camera", &entity.CameraComponent{
 		ViewportSize: sdl.Point{800, 600},
-		WorldSize: sdl.Point{800, 600},
+		WorldSize:    sdl.Point{800, 600},
 	})
 	render.SetCamera(camera)
 

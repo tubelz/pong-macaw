@@ -9,8 +9,8 @@ import (
 // PlayerSystem is the struct that contains the controllable stick
 type PlayerSystem struct {
 	EntityManager *entity.Manager
-	Name string
-	InputManager *input.Manager
+	Name          string
+	InputManager  *input.Manager
 }
 
 // Init initialize this system
@@ -18,7 +18,8 @@ func (p *PlayerSystem) Init() {}
 
 // Update handle the input event
 func (p *PlayerSystem) Update() {
-	if button := p.InputManager.Button(); button != nil {
+	empty := sdl.KeyboardEvent{}
+	if button := p.InputManager.Button(); button != empty {
 		if button.Keysym.Sym == sdl.K_UP {
 			e := p.EntityManager.Get(0)
 			p, _ := e.GetComponent("position")

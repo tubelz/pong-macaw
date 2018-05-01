@@ -1,15 +1,15 @@
 package psystem
 
 import (
-	"log"
 	"github.com/tubelz/macaw/entity"
 	"github.com/tubelz/macaw/system"
+	"log"
 )
 
 // ChangeSystem is the struct responsible to add the observer and handler to the collision event
 type ChangeSystem struct {
 	EntityManager *entity.Manager
-	Name string
+	Name          string
 	system.Subject
 	CollisionSystem *system.CollisionSystem
 }
@@ -58,27 +58,24 @@ func invertAxis(event system.Event) {
 	component, _ = border.Ent.GetComponent("physics")
 	physics := component.(*entity.PhysicsComponent)
 
-	component, _ = border.Ent.GetComponent("collision")
-	collision := component.(*entity.CollisionComponent)
-
 	switch border.Side {
-		case "top":
-			position.Pos.Y = 1
-			physics.FuturePos.Y = 1
-			physics.Vel.Y *= -1
-		case "bottom":
-			size := collision.Size.Y
-			position.Pos.Y = 599 - size
-			physics.FuturePos.Y = float32(599 - size)
-			physics.Vel.Y *= -1
-		case "left":
-			position.Pos.X = 1
-			physics.FuturePos.X = 1
-			physics.Vel.X *= -1
-		case "right":
-			size := collision.Size.X
-			position.Pos.X = 799 - size
-			physics.FuturePos.X = float32(799 - size)
-			physics.Vel.X *= -1
+	case "top":
+		position.Pos.Y = 1
+		physics.FuturePos.Y = 1
+		physics.Vel.Y *= -1
+	case "bottom":
+		size := int32(10)
+		position.Pos.Y = 599 - size
+		physics.FuturePos.Y = float32(599 - size)
+		physics.Vel.Y *= -1
+	case "left":
+		position.Pos.X = 1
+		physics.FuturePos.X = 1
+		physics.Vel.X *= -1
+	case "right":
+		size := int32(10)
+		position.Pos.X = 799 - size
+		physics.FuturePos.X = float32(799 - size)
+		physics.Vel.X *= -1
 	}
 }

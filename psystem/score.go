@@ -1,18 +1,18 @@
 package psystem
 
 import (
-	"log"
 	"fmt"
 	"github.com/tubelz/macaw/entity"
 	"github.com/tubelz/macaw/system"
+	"log"
 	"strconv"
 )
 
 // ScoreSystem is the struct responsible to keep the score of the game
 type ScoreSystem struct {
-	Entities []entity.Entitier
+	Entities      []entity.Entitier
 	EntityManager *entity.Manager
-	Name string
+	Name          string
 	system.Subject
 	CollisionSystem *system.CollisionSystem
 }
@@ -31,15 +31,12 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 	border := event.(*system.BorderEvent)
 	obj := border.Ent
 	var ok bool
-	var component entity.Component
 
 	components := obj.GetComponents()
-	component, ok = components["position"]
+	_, ok = components["position"]
 	if !ok {
-			return
+		return
 	}
-	position := component.(*entity.PositionComponent)
-
 	if border.Side == "right" {
 		log.Printf("entity: %d", obj.GetID())
 		log.Println("you scored")
@@ -47,7 +44,7 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 		myScore := s.EntityManager.Get(3)
 		f := myScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
-		f.Text = fmt.Sprintf("%d", score + 1)
+		f.Text = fmt.Sprintf("%d", score+1)
 		f.Modified = true
 	}
 	if border.Side == "left" {
@@ -57,7 +54,7 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 		hisScore := s.EntityManager.Get(4)
 		f := hisScore.GetComponents()["font"].(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
-		f.Text = fmt.Sprintf("%d", score + 1)
+		f.Text = fmt.Sprintf("%d", score+1)
 		f.Modified = true
 	}
 }
