@@ -45,8 +45,6 @@ func initializeSystems(im *input.Manager, em *entity.Manager) []system.Systemer 
 	ai := &psystem.AiSystem{Name: "ai system", EntityManager: em}
 	// initialize some systems that require such actions
 	render.Init()
-	change.Init()
-	score.Init()
 
 	systems := []system.Systemer{
 		render,
@@ -62,12 +60,12 @@ func initializeSystems(im *input.Manager, em *entity.Manager) []system.Systemer 
 
 // func initializeEntities(systems []system.Systemer, font *ttf.Font) ([]entity.Entitier){
 func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf.Font) {
-	player := em.Create()
-	computer := em.Create()
-	ball := em.Create()
-	playerScore := em.Create()
-	computerScore := em.Create()
-	camera := em.Create()
+	player := em.Create("player")
+	computer := em.Create("computer")
+	ball := em.Create("ball")
+	playerScore := em.Create("pscore")
+	computerScore := em.Create("cscore")
+	camera := em.Create("camera")
 
 	//load sprite
 	render := systems[0].(*system.RenderSystem)
