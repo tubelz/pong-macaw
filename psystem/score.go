@@ -13,7 +13,6 @@ type ScoreSystem struct {
 	Entities      []entity.Entitier
 	EntityManager *entity.Manager
 	Name          string
-	system.Subject
 	CollisionSystem *system.CollisionSystem
 }
 

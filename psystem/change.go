@@ -10,7 +10,6 @@ import (
 type ChangeSystem struct {
 	EntityManager *entity.Manager
 	Name          string
-	system.Subject
 	CollisionSystem *system.CollisionSystem
 }
 
