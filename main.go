@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/tubelz/macaw"
 	"github.com/tubelz/macaw/entity"
 	"github.com/tubelz/macaw/input"
@@ -15,7 +16,7 @@ import (
 func main() {
 	fmt.Println("Pong")
 	var err error
-	err = macaw.Initialize(false, true, false)
+	err = macaw.Initialize()
 	if err != nil {
 		fmt.Println("Macaw could not initialize")
 	}
