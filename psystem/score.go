@@ -10,9 +10,9 @@ import (
 
 // ScoreSystem is the struct responsible to keep the score of the game
 type ScoreSystem struct {
-	Entities      []entity.Entitier
-	EntityManager *entity.Manager
-	Name          string
+	Entities        []entity.Entitier
+	EntityManager   *entity.Manager
+	Name            string
 	CollisionSystem *system.CollisionSystem
 }
 
@@ -29,19 +29,15 @@ func (s *ScoreSystem) Init() {
 func (s *ScoreSystem) checkScore(event system.Event) {
 	border := event.(*system.BorderEvent)
 	obj := border.Ent
-	var ok bool
+	var component entity.Component
 
-	components := obj.GetComponents()
-	_, ok = components["position"]
-	if !ok {
-		return
-	}
 	if border.Side == "right" {
 		log.Printf("entity: %d", obj.GetID())
 		log.Println("you scored")
 
 		myScore := s.EntityManager.Get(3)
-		f := myScore.GetComponents()["font"].(*entity.FontComponent)
+		component = myScore.GetComponent(&entity.FontComponent{})
+		f := component.(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score+1)
 		f.Modified = true
@@ -51,7 +47,8 @@ func (s *ScoreSystem) checkScore(event system.Event) {
 		log.Println("he scored")
 
 		hisScore := s.EntityManager.Get(4)
-		f := hisScore.GetComponents()["font"].(*entity.FontComponent)
+		component = hisScore.GetComponent(&entity.FontComponent{})
+		f := component.(*entity.FontComponent)
 		score, _ := strconv.Atoi(f.Text)
 		f.Text = fmt.Sprintf("%d", score+1)
 		f.Modified = true

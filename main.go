@@ -75,47 +75,50 @@ func initializeEntities(em *entity.Manager, systems []system.Systemer, font *ttf
 	vel := &math.FPoint{0, 1}
 
 	// player
-	player.AddComponent("position", &entity.PositionComponent{&sdl.Point{20, 20}})
-	player.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
-	player.AddComponent("geometry", &entity.RectangleComponent{
+	player.AddComponent(&entity.PositionComponent{&sdl.Point{20, 20}})
+	player.AddComponent(&entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
+	player.AddComponent(&entity.RenderComponent{RenderType: entity.RTGeometry})
+	player.AddComponent(&entity.RectangleComponent{
 		Size:   &sdl.Point{10, 80},
 		Color:  &sdl.Color{0x66, 0x66, 0x66, 0xFF},
 		Filled: true,
 	})
 
 	// computer
-	computer.AddComponent("position", &entity.PositionComponent{&sdl.Point{770, 20}})
-	computer.AddComponent("physics", &entity.PhysicsComponent{Vel: vel, Acc: acc, FuturePos: &math.FPoint{770, 20}})
-	computer.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
-	computer.AddComponent("geometry", &entity.RectangleComponent{
+	computer.AddComponent(&entity.PositionComponent{&sdl.Point{770, 20}})
+	computer.AddComponent(&entity.PhysicsComponent{Vel: vel, Acc: acc, FuturePos: &math.FPoint{770, 20}})
+	computer.AddComponent(&entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 80}}})
+	computer.AddComponent(&entity.RenderComponent{RenderType: entity.RTGeometry})
+	computer.AddComponent(&entity.RectangleComponent{
 		Size:   &sdl.Point{10, 80},
 		Color:  &sdl.Color{0xFF, 0x66, 0x66, 0xFF},
 		Filled: true,
 	})
 
 	// ball
-	ball.AddComponent("position", &entity.PositionComponent{&sdl.Point{300, 20}})
-	ball.AddComponent("physics", &entity.PhysicsComponent{Vel: &math.FPoint{8, 1}, Acc: acc, FuturePos: &math.FPoint{300, 20}})
-	ball.AddComponent("collision", &entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 10}}})
-	ball.AddComponent("geometry", &entity.RectangleComponent{
+	ball.AddComponent(&entity.PositionComponent{&sdl.Point{300, 20}})
+	ball.AddComponent(&entity.PhysicsComponent{Vel: &math.FPoint{8, 1}, Acc: acc, FuturePos: &math.FPoint{300, 20}})
+	ball.AddComponent(&entity.CollisionComponent{CollisionAreas: []sdl.Rect{sdl.Rect{0, 0, 10, 10}}})
+	ball.AddComponent(&entity.RenderComponent{RenderType: entity.RTGeometry})
+	ball.AddComponent(&entity.RectangleComponent{
 		Size:   &sdl.Point{10, 10},
 		Color:  &sdl.Color{0x00, 0x00, 0x00, 0xFF},
 		Filled: false,
 	})
 
 	// player score
-	playerScore.AddComponent("position", &entity.PositionComponent{&sdl.Point{200, 20}})
-	playerScore.AddComponent("font", &entity.FontComponent{Text: "0", Modified: true, Font: font})
-	playerScore.AddComponent("render", &entity.RenderComponent{Renderer: render.Renderer})
+	playerScore.AddComponent(&entity.PositionComponent{&sdl.Point{200, 20}})
+	playerScore.AddComponent(&entity.FontComponent{Text: "0", Modified: true, Font: font})
+	playerScore.AddComponent(&entity.RenderComponent{RenderType: entity.RTFont})
 
 	// computer score
-	computerScore.AddComponent("position", &entity.PositionComponent{&sdl.Point{500, 20}})
-	computerScore.AddComponent("font", &entity.FontComponent{Text: "0", Modified: true, Font: font})
-	computerScore.AddComponent("render", &entity.RenderComponent{Renderer: render.Renderer})
+	computerScore.AddComponent(&entity.PositionComponent{&sdl.Point{500, 20}})
+	computerScore.AddComponent(&entity.FontComponent{Text: "0", Modified: true, Font: font})
+	computerScore.AddComponent(&entity.RenderComponent{RenderType: entity.RTFont})
 
 	// camera
-	camera.AddComponent("position", &entity.PositionComponent{&sdl.Point{0, 0}})
-	camera.AddComponent("camera", &entity.CameraComponent{
+	camera.AddComponent(&entity.PositionComponent{&sdl.Point{0, 0}})
+	camera.AddComponent(&entity.CameraComponent{
 		ViewportSize: sdl.Point{800, 600},
 		WorldSize:    sdl.Point{800, 600},
 	})

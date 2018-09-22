@@ -18,10 +18,10 @@ func (a *AiSystem) Update() {
 	computer := a.EntityManager.Get(1)
 	ball := a.EntityManager.Get(2)
 
-	component, _ := ball.GetComponent("physics")
+	component := ball.GetComponent(&entity.PhysicsComponent{})
 	ballPhysics := component.(*entity.PhysicsComponent)
 
-	component, _ = computer.GetComponent("physics")
+	component = computer.GetComponent(&entity.PhysicsComponent{})
 	computerPhysics := component.(*entity.PhysicsComponent)
 
 	if (ballPhysics.Vel.Y > 0 && computerPhysics.Vel.Y < 0) ||

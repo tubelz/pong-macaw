@@ -8,8 +8,8 @@ import (
 
 // ChangeSystem is the struct responsible to add the observer and handler to the collision event
 type ChangeSystem struct {
-	EntityManager *entity.Manager
-	Name          string
+	EntityManager   *entity.Manager
+	Name            string
 	CollisionSystem *system.CollisionSystem
 }
 
@@ -31,7 +31,7 @@ func increaseVel(event system.Event) {
 	if collision.Ent.GetID() != 2 {
 		return
 	}
-	component, _ := collision.Ent.GetComponent("physics")
+	component := collision.Ent.GetComponent(&entity.PhysicsComponent{})
 	physics := component.(*entity.PhysicsComponent)
 
 	log.Printf("%v", physics.Vel)
@@ -51,10 +51,10 @@ func invertAxis(event system.Event) {
 	if border.Ent.GetID() == 0 {
 		return
 	}
-	component, _ := border.Ent.GetComponent("position")
+	component := border.Ent.GetComponent(&entity.PositionComponent{})
 	position := component.(*entity.PositionComponent)
 
-	component, _ = border.Ent.GetComponent("physics")
+	component = border.Ent.GetComponent(&entity.PhysicsComponent{})
 	physics := component.(*entity.PhysicsComponent)
 
 	switch border.Side {
